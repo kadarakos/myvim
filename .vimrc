@@ -6,15 +6,8 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
-" add all your plugins here (note older versions of Vundle
-" used Bundle instead of Plugin)
-
 " Syntax highlight/check
 Plugin 'vim-syntastic/syntastic'
 " PEP-8 compliance check
@@ -25,7 +18,10 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Vimjas/vim-python-pep8-indent'
 " Solarized theme
 Plugin 'lifepillar/vim-solarized8'
-
+" Auto pop-up autocomplete
+Plugin 'vim-scripts/AutoComplPop'
+" Tag-bar
+Plugin 'majutsushi/tagbar'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -33,64 +29,61 @@ filetype plugin indent on    " required
 
 " Set to auto read when a file is changed from the outside
 set autoread
-
+" Show line numbers
 set nu
-
 "Always show current position
 set ruler
-
 " Highlight search results
 set hlsearch
-
-" Show matching brackets when text indicator is over them
+" Show matching brackets
 set showmatch 
-
 " Enable syntax highlighting
 syntax on 
-
-" Appearance
-set background=dark
-colorscheme solarized8_low
-
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
-
+" Allows using the mouse when feel like it
+set mouse=a
 
 " Turn backup off, since most stuff is in git etc anyways...
 set nobackup
 set nowb
 set noswapfile
 
-" Linebreak on 79 characters
-set lbr
-set textwidth=79
-
-
-" Remove extra whitespace
-" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-" set ai "Auto indent
-" set si "Smart indent
-" set wrap "Wrap lines
-" set shiftwidth=4
-" set tabstop=4
-" set softtabstop=4
-" set expandtab
-
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
 
+" Autocomplete setup settings
+set completeopt=menuone,longest
+set shortmess+=c
+
+" Prettyfy pyhton
+let python_highlight_all=1
+syntax on
+
+" Appearance
+set background=dark
+colorscheme solarized8_low
+
+" KEY BINDINGS
+
 " Enable folding with the spacebar
 nnoremap <space> za
 
+" Toggle NERDTree with Cntrl + n
+map <C-n> :NERDTreeToggle<CR>
 
-" split navigations
+" Toggle tagbar with F8
+nmap <F8> :TagbarToggle<CR>
+
+" split navigations with Cntrl + H|J|K|L
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Prettyfy pyhton
-let python_highlight_all=1
-syntax on
+" Moving codeblocks around with  Shift + J|K
+nnoremap K :m .-2<CR>==
+nnoremap J :m .+1<CR>==
+vnoremap K :m '<-2<CR>gv=gv
+vnoremap J :m '>+1<CR>gv=gv
